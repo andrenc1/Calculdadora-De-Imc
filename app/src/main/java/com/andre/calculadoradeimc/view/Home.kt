@@ -28,7 +28,8 @@ import com.andre.calculadoradeimc.viewmodel.IMCViewModel
 fun Home(
     viewModel: IMCViewModel,
     onNavigateToTmb: (String, String, String, Boolean) -> Unit,
-    onNavigateToHistory: () -> Unit
+    onNavigateToHistory: () -> Unit,
+    onNavigateToGraphs: () -> Unit = {}
 ) {
 
     var altura by remember { mutableStateOf("") }
@@ -45,6 +46,9 @@ fun Home(
                     Text(text = "Calculadora de IMC", color = White, fontWeight = FontWeight.Bold)
                 },
                 actions = {
+                    TextButton(onClick = onNavigateToGraphs) {
+                        Text("Gráficos", color = White)
+                    }
                     TextButton(onClick = onNavigateToHistory) {
                         Text("Histórico", color = White)
                     }

@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.andre.calculadoradeimc.model.AppDatabase
 import com.andre.calculadoradeimc.model.IMCRepository
+import com.andre.calculadoradeimc.view.GraphScreen
 import com.andre.calculadoradeimc.view.HistoryScreen
 import com.andre.calculadoradeimc.view.Home
 import com.andre.calculadoradeimc.view.TMBScreen
@@ -38,6 +39,9 @@ class MainActivity : ComponentActivity() {
                              },
                              onNavigateToHistory = {
                                  navController.navigate("history")
+                             },
+                             onNavigateToGraphs = {
+                                 navController.navigate("graphs")
                              }
                          )
                      }
@@ -66,6 +70,12 @@ class MainActivity : ComponentActivity() {
                      }
                      composable("history") {
                          HistoryScreen(
+                             viewModel = viewModel,
+                             onBack = { navController.popBackStack() }
+                         )
+                     }
+                     composable("graphs") {
+                         GraphScreen(
                              viewModel = viewModel,
                              onBack = { navController.popBackStack() }
                          )

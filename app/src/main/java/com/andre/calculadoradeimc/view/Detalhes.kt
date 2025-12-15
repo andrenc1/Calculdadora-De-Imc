@@ -36,7 +36,7 @@ fun TMBScreen(
     var isHomem by remember { mutableStateOf(initialIsHomem) }
     var tmbResult by remember { mutableStateOf<Calculation.TMBResult?>(null) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    
+
     var expanded by remember { mutableStateOf(false) }
     var selectedActivityLevel by remember { mutableStateOf("Sedentário") }
     var activityFactor by remember { mutableDoubleStateOf(1.2) }
@@ -51,12 +51,9 @@ fun TMBScreen(
 
     LaunchedEffect(peso, altura, idade, isHomem, activityFactor) {
         if (peso.isNotEmpty() && altura.isNotEmpty() && idade.isNotEmpty()) {
-            Calculation.calculateTMB(peso, altura, idade, isHomem, activityFactor) { res, error -> 
-                tmbResult = res 
+            Calculation.calculateTMB(peso, altura, idade, isHomem, activityFactor) { res, error ->
+                tmbResult = res
                 errorMessage = error
-                if (res != null) {
-                    viewModel.saveIMC(peso, altura, idade, isHomem, activityFactor)
-                }
             }
         } else {
             tmbResult = null
@@ -89,7 +86,7 @@ fun TMBScreen(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            
+
             Text(
                 text = "Selecione o Nível de Atividade:",
                 fontWeight = FontWeight.Bold,
@@ -138,19 +135,19 @@ fun TMBScreen(
             if (tmbResult != null) {
                 val result = tmbResult!!
                 val cardColor = when {
-                    result.imc < 18.5 -> BlueInfo.copy(alpha = 0.2f) 
-                    result.imc in 18.5..24.9 -> GreenHealth.copy(alpha = 0.2f) 
-                    result.imc in 25.0..29.9 -> YellowWarning.copy(alpha = 0.2f) 
-                    result.imc in 30.0..34.9 -> OrangeWarning.copy(alpha = 0.2f) 
-                    else -> Red.copy(alpha = 0.2f) 
+                    result.imc < 18.5 -> BlueInfo.copy(alpha = 0.2f)
+                    result.imc in 18.5..24.9 -> GreenHealth.copy(alpha = 0.2f)
+                    result.imc in 25.0..29.9 -> YellowWarning.copy(alpha = 0.2f)
+                    result.imc in 30.0..34.9 -> OrangeWarning.copy(alpha = 0.2f)
+                    else -> Red.copy(alpha = 0.2f)
                 }
-                
-                 val titleColor = when {
-                    result.imc < 18.5 -> BlueInfo 
-                    result.imc in 18.5..24.9 -> GreenHealth 
-                    result.imc in 25.0..29.9 -> OrangeWarning 
-                    result.imc in 30.0..34.9 -> OrangeWarning 
-                    else -> Red 
+
+                val titleColor = when {
+                    result.imc < 18.5 -> BlueInfo
+                    result.imc in 18.5..24.9 -> GreenHealth
+                    result.imc in 25.0..29.9 -> OrangeWarning
+                    result.imc in 30.0..34.9 -> OrangeWarning
+                    else -> Red
                 }
 
                 Card(
@@ -174,8 +171,27 @@ fun TMBScreen(
                         )
                     }
                 }
+                Button(
+                    onClick = {
+                        if (peso.isNotEmpty() && altura.isNotEmpty() && idade.isNotEmpty()) {
+                            viewModel.saveIMC(peso, altura, idade, isHomem, activityFactor)
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = GreenHealth),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .height(50.dp)
+                ) {
+                    Text(
+                        text = "Salvar Medição no Histórico",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = White
+                    )
+                }
             } else if (errorMessage != null) {
-                 Text(
+                Text(
                     text = errorMessage!!,
                     color = MaterialTheme.colorScheme.error,
                     modifier = Modifier.padding(20.dp),
@@ -188,7 +204,7 @@ fun TMBScreen(
                     textAlign = TextAlign.Center
                 )
             }
-            
+
             HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp))
             Text("Editar Dados (Opcional)", fontWeight = FontWeight.Light, fontSize = 14.sp)
 
@@ -220,8 +236,8 @@ fun TMBScreen(
             Spacer(Modifier.height(10.dp))
 
             OutlinedTextField(
-                value = idade, 
-                onValueChange = { 
+                value = idade,
+                onValueChange = {
                     if (it.length <= 3) {
                         val age = it.toIntOrNull()
                         if (it.isEmpty() || (age != null && age <= 100)) {
@@ -234,7 +250,7 @@ fun TMBScreen(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 colors = OutlinedTextFieldDefaults.colors(cursorColor = GreenHealth, focusedBorderColor = GreenHealth, focusedLabelColor = GreenHealth)
             )
-            
+
             Spacer(Modifier.height(20.dp))
         }
     }
