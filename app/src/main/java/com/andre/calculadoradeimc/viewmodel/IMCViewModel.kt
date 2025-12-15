@@ -31,10 +31,10 @@ class IMCViewModel(private val repository: IMCRepository) : ViewModel() {
             
             val classificacao = when {
                 imc < 18.5 -> "Abaixo do Peso"
-                imc in 18.5..24.9 -> "Peso Normal"
-                imc in 25.0..29.9 -> "Sobrepeso"
-                imc in 30.0..34.9 -> "Obesidade Grau I"
-                imc in 35.0..39.9 -> "Obesidade Severa (Grau II)"
+                imc < 25.0 -> "Peso Normal"
+                imc < 30.0 -> "Sobrepeso"
+                imc < 35.0 -> "Obesidade Grau I"
+                imc < 40.0 -> "Obesidade Severa (Grau II)"
                 else -> "Obesidade Mórbida (Grau III)"
             }
 

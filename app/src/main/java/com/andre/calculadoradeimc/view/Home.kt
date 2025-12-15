@@ -37,6 +37,7 @@ fun Home(
     var idade by remember { mutableStateOf("") }
     var isHomem by remember { mutableStateOf(true) }
     var resultado by remember { mutableStateOf("") }
+    var classificacao by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -202,9 +203,11 @@ fun Home(
                     if (peso.isEmpty() || altura.isEmpty() || idade.isEmpty()) {
                         isError = true
                         resultado = "Preencha todos os campos!"
+                        classificacao = ""
                     } else {
-                        Calculation.calculateIMC(peso, altura) { message, errorState ->
+                        Calculation.calculateIMC(peso, altura) { message, classif, errorState ->
                             resultado = message
+                            classificacao = classif
                             isError = errorState
                         }
                     }
@@ -224,11 +227,25 @@ fun Home(
             }
 
             // --- Resultado ---
+            val resultColor = if (isError) {
+                Color.Red
+            } else {
+                when (classificacao) {
+                    "Abaixo do Peso" -> Color(0xFFFFA726) // Laranja
+                    "Peso Normal" -> GreenHealth
+                    "Sobrepeso" -> Color(0xFFFFA726) // Laranja
+                    "Obesidade Grau I" -> Color(0xFFEF5350) // Vermelho Claro
+                    "Obesidade Severa (Grau II)" -> Color(0xFFC62828) // Vermelho Escuro
+                    "Obesidade Mórbida (Grau III)" -> Color(0xFFB71C1C) // Vermelho Muito Escuro
+                    else -> GreenHealth
+                }
+            }
+
             Text(
                 text = resultado,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = if(isError) Color.Red else GreenHealth,
+                color = resultColor,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
