@@ -28,7 +28,8 @@ import com.andre.calculadoradeimc.viewmodel.IMCViewModel
 fun Home(
     viewModel: IMCViewModel,
     onNavigateToTmb: (String, String, String, Boolean) -> Unit,
-    onNavigateToHistory: () -> Unit
+    onNavigateToHistory: () -> Unit,
+    onNavigateToGraphs: () -> Unit = {}
 ) {
 
     var altura by remember { mutableStateOf("") }
@@ -36,6 +37,7 @@ fun Home(
     var idade by remember { mutableStateOf("") }
     var isHomem by remember { mutableStateOf(true) }
     var resultado by remember { mutableStateOf("") }
+    var classificacao by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -45,6 +47,9 @@ fun Home(
                     Text(text = "Calculadora de IMC", color = White, fontWeight = FontWeight.Bold)
                 },
                 actions = {
+                    TextButton(onClick = onNavigateToGraphs) {
+                        Text("Gráficos", color = White)
+                    }
                     TextButton(onClick = onNavigateToHistory) {
                         Text("Histórico", color = White)
                     }
@@ -198,14 +203,12 @@ fun Home(
                     if (peso.isEmpty() || altura.isEmpty() || idade.isEmpty()) {
                         isError = true
                         resultado = "Preencha todos os campos!"
+                        classificacao = ""
                     } else {
-                        Calculation.calculateIMC(peso, altura) { message, errorState ->
+                        Calculation.calculateIMC(peso, altura) { message, classif, errorState ->
                             resultado = message
+                            classificacao = classif
                             isError = errorState
-                            if (!isError) {
-                                // Salva no banco com valores padrão para fator de atividade
-                                viewModel.saveIMC(peso, altura, idade, isHomem, 1.2)
-                            }
                         }
                     }
                 },
@@ -224,11 +227,25 @@ fun Home(
             }
 
             // --- Resultado ---
+            val resultColor = if (isError) {
+                Color.Red
+            } else {
+                when (classificacao) {
+                    "Abaixo do Peso" -> Color(0xFFFFA726) // Laranja
+                    "Peso Normal" -> GreenHealth
+                    "Sobrepeso" -> Color(0xFFFFA726) // Laranja
+                    "Obesidade Grau I" -> Color(0xFFEF5350) // Vermelho Claro
+                    "Obesidade Severa (Grau II)" -> Color(0xFFC62828) // Vermelho Escuro
+                    "Obesidade Mórbida (Grau III)" -> Color(0xFFB71C1C) // Vermelho Muito Escuro
+                    else -> GreenHealth
+                }
+            }
+
             Text(
                 text = resultado,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = if(isError) Color.Red else GreenHealth,
+                color = resultColor,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
