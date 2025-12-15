@@ -20,6 +20,10 @@ import com.andre.calculadoradeimc.ui.theme.White
 import com.andre.calculadoradeimc.viewmodel.IMCViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.compose.ui.platform.LocalContext
+import com.andre.calculadoradeimc.datasource.CsvExporter
+import androidx.compose.material.icons.filled.Share // ou Icons.Default.Share
+import android.widget.Toast
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,6 +32,7 @@ fun HistoryScreen(
     onBack: () -> Unit
 ) {
     val historyList by viewModel.allRecords.collectAsState()
+    val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
@@ -54,7 +59,7 @@ fun HistoryScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Histórico de Medições", color = White) },
+                title = { Text("Histórico", color = White) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Voltar", tint = White)
@@ -62,6 +67,13 @@ fun HistoryScreen(
                 },
                 actions = {
                     if (historyList.isNotEmpty()) {
+                        IconButton(onClick = {
+                            CsvExporter.exportToCSV(context, historyList)
+                            Toast.makeText(context, "Gerando CSV...", Toast.LENGTH_SHORT).show()
+                        }) {
+                            Icon(Icons.Default.Share, contentDescription = "Exportar CSV", tint = White)
+                        }
+
                         IconButton(onClick = { showDialog = true }) {
                             Icon(Icons.Filled.Delete, contentDescription = "Limpar Histórico", tint = White)
                         }

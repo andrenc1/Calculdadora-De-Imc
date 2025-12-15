@@ -206,10 +206,6 @@ fun Home(
                         Calculation.calculateIMC(peso, altura) { message, errorState ->
                             resultado = message
                             isError = errorState
-                            if (!isError) {
-                                // Salva no banco com valores padrão para fator de atividade
-                                viewModel.saveIMC(peso, altura, idade, isHomem, 1.2)
-                            }
                         }
                     }
                 },
