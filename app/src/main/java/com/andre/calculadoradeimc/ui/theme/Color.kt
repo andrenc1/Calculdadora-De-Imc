@@ -1,4 +1,4 @@
-package com.example.calcimcandre.ui.theme
+package com.andre.calculadoradeimc.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

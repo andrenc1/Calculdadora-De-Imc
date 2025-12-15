@@ -1,4 +1,4 @@
-package com.example.calcimcandre.view
+package com.andre.calculadoradeimc.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,12 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.calcimcandre.datasource.Calculation
-import com.example.calcimcandre.ui.theme.BlueLink
-import com.example.calcimcandre.ui.theme.GreenHealth
-import com.example.calcimcandre.ui.theme.White
-import com.example.calcimcandre.ui.theme.Red
-import com.example.calcimcandre.viewmodel.IMCViewModel
+import com.andre.calculadoradeimc.datasource.Calculation
+import com.andre.calculadoradeimc.ui.theme.BlueLink
+import com.andre.calculadoradeimc.ui.theme.GreenHealth
+import com.andre.calculadoradeimc.ui.theme.White
+import com.andre.calculadoradeimc.ui.theme.Red
+import com.andre.calculadoradeimc.viewmodel.IMCViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

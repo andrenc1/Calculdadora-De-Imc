@@ -1,4 +1,4 @@
-package com.example.calcimcandre.model
+package com.andre.calculadoradeimc.model
 
 import android.content.Context
 import androidx.room.Database

@@ -1,4 +1,4 @@
-package com.example.calcimcandre.model
+package com.andre.calculadoradeimc.model
 
 import kotlinx.coroutines.flow.Flow
 

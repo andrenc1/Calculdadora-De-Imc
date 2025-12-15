@@ -1,10 +1,10 @@
-package com.example.calcimcandre.viewmodel
+package com.andre.calculadoradeimc.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.calcimcandre.model.IMCRecord
-import com.example.calcimcandre.model.IMCRepository
+import com.andre.calculadoradeimc.model.IMCRecord
+import com.andre.calculadoradeimc.model.IMCRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn

@@ -1,4 +1,4 @@
-package com.example.calcimcandre.view
+package com.andre.calculadoradeimc.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.calcimcandre.model.IMCRecord
-import com.example.calcimcandre.ui.theme.GreenHealth
-import com.example.calcimcandre.ui.theme.White
-import com.example.calcimcandre.viewmodel.IMCViewModel
+import com.andre.calculadoradeimc.model.IMCRecord
+import com.andre.calculadoradeimc.ui.theme.GreenHealth
+import com.andre.calculadoradeimc.ui.theme.White
+import com.andre.calculadoradeimc.viewmodel.IMCViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

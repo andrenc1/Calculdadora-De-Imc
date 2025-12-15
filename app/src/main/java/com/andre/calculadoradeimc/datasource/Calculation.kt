@@ -1,4 +1,4 @@
-package com.example.calcimcandre.datasource
+package com.andre.calculadoradeimc.datasource
 
 object Calculation {
 
