@@ -41,6 +41,10 @@ fun TMBScreen(
     var selectedActivityLevel by remember { mutableStateOf("Sedentário") }
     var activityFactor by remember { mutableDoubleStateOf(1.2) }
 
+    /** Gemini - início
+     *  Prompt: Faça lista com níveis de atividade física e seus fatores multiplicadores.
+     *  Também quero que a TMB seja recalculada automaticamente sempre que o usuário mudar qualquer dado (peso, altura, etc).
+     */
     val activityOptions = listOf(
         "Sedentário" to 1.2,
         "Levemente Ativo" to 1.375,
@@ -60,6 +64,7 @@ fun TMBScreen(
             errorMessage = null
         }
     }
+    /** Gemini - final */
 
     Scaffold(
         topBar = {
@@ -134,6 +139,12 @@ fun TMBScreen(
 
             if (tmbResult != null) {
                 val result = tmbResult!!
+                
+                /** Gemini - início
+                 *  Prompt: Cria um card bonitão pra mostrar os resultados. 
+                 *  Quero que as cores de fundo e do título mudem de acordo com o IMC, tipo verde se tiver saudável, vermelho se tiver crítico, pra ficar bem visual.
+                 *
+                 */
                 val cardColor = when {
                     result.imc < 18.5 -> BlueInfo.copy(alpha = 0.2f)
                     result.imc in 18.5..24.9 -> GreenHealth.copy(alpha = 0.2f)
@@ -171,6 +182,8 @@ fun TMBScreen(
                         )
                     }
                 }
+                /** Gemini - final */
+                
                 Button(
                     onClick = {
                         if (peso.isNotEmpty() && altura.isNotEmpty() && idade.isNotEmpty()) {

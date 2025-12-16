@@ -86,7 +86,13 @@ object Calculation {
             response(null, "Idade deve estar entre 1 e 100 anos")
             return
         }
-
+        
+        /** Gemini - início
+         *  Prompt: Implemente a fórmula de Mifflin-St Jeor para calcular a TMB (Taxa Metabólica Basal). 
+         *  Considere as variações da fórmula para homens e mulheres.
+         *  Em seguida, calcule também o Peso Ideal usando a fórmula de Devine e a Necessidade Calórica Diária baseada no fator de atividade.
+         *
+         */
         // Fórmula Mifflin-St Jeor (TMB)
         val base = (10 * pesoKg) + (6.25 * alturaCm) - (5 * idadeAnos)
         val tmb = if (isHomem) base + 5 else base - 161
@@ -103,6 +109,7 @@ object Calculation {
 
         // Necessidade Calórica Diária
         val caloriasDiarias = tmb * activityFactor
+        /** Gemini - final */
 
         // IMC Atual para referência
         val imc = pesoKg / ((alturaCm / 100) * (alturaCm / 100))
@@ -117,7 +124,13 @@ object Calculation {
         }
 
         val imcFormatado = String.format("%.2f", imc)
-
+        
+        /** Gemini - início
+         *  Prompt: Formate o texto final do resultado para apresentar de forma clara e legível as seguintes informações: 
+         *  IMC atual com classificação, alertas de saúde, TMB, necessidade calórica diária e peso ideal estimado.
+         *  Use emojis para tornar a leitura mais amigável.
+         *
+         */
         val resultadoFinal = """
             📊 IMC Atual: $imcFormatado ($interpretacao)
             $zonaDeRisco
@@ -133,6 +146,7 @@ object Calculation {
             ⚖️ Peso Ideal Estimado: 
             %.1f kg
         """.trimIndent().format(tmb, caloriasDiarias, pesoIdealValidado)
+        /** Gemini - final */
 
         response(
             TMBResult(

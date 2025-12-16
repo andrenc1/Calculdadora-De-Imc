@@ -125,6 +125,10 @@ fun GraphScreen(
     }
 }
 
+/** Gemini - início
+ *  Prompt: como seria pra fazer graficos usando lib YCharts.
+ *  sendo que o eixo X mostre as datas formatadas e o Y se ajuste aos valores.
+ */
 @Composable
 fun GraphCard(
     title: String,
@@ -222,7 +226,14 @@ fun GraphCard(
         }
     }
 }
+/** Gemini - final */
 
+/** Gemini - início
+ *  Prompt: Agora cria um card de estatísticas pra resumir o progresso. 
+ *  Pega a primeira e a última medição e calcula a diferença. 
+ *  Se o cara perdeu peso, põe verde; se ganhou, vermelho. Quero ver a variação do IMC também.
+ *
+ */
 @Composable
 fun StatisticsCard(data: List<IMCRecord>) {
     val firstRecord = data.first()
@@ -272,6 +283,7 @@ fun StatisticsCard(data: List<IMCRecord>) {
         }
     }
 }
+/** Gemini - final */
 
 @Composable
 fun StatRow(label: String, value: String, valueColor: Color = Color.Black) {
